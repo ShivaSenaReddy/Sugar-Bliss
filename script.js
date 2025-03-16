@@ -18,7 +18,7 @@ async function fillMenu() {
         </div>
         <div class="item--desc">
           <p class="category">${element.category}</p>
-          <h5>${element.name}</h5>
+          <h6>${element.name}</h6>
           <p class="price">$${element.price}</p>
         </div>
       </div>
@@ -100,6 +100,11 @@ function yourCartDisplay() {
     <p><strong>$ ${totalPrice}</strong></p>
     
     </div>
+    <div class='carbon'>
+      <img src="./assets/images/icon-carbon-neutral.svg"/>
+    <p>
+    This is a carbon neutral delivery
+    </p></div>
     <button class='confirm--order'>Confirm Order</button>
     `;
   }
