@@ -5,6 +5,10 @@ body {
   background-color: hsl(20, 50%, 98%);
   color: hsl(14, 65%, 9%);
 }
+h6,
+p {
+  margin: 8px;
+}
 .container {
   width: 80%;
   margin: 0 auto;
@@ -22,6 +26,9 @@ body {
 }
 .item--order {
   position: relative;
+}
+.item--desc {
+  margin-top: 16px;
 }
 .item--img {
   border-radius: 5%;
@@ -87,8 +94,11 @@ h2 {
 .order--total {
   display: flex;
   justify-content: space-between;
+  border-bottom-left-radius: 6px;
+  border-bottom-right-radius: 6px;
 }
-.confirm--order {
+.confirm--order,
+.new--order {
   background-color: hsl(14, 86%, 42%);
   display: block;
   border: none;
@@ -96,6 +106,7 @@ h2 {
   padding: 12px 16px;
   width: 100%;
   border-radius: 20px;
+  margin-top: 12px;
 }
 .carbon {
   display: flex;
@@ -104,4 +115,74 @@ h2 {
   text-align: center;
   border-radius: 8px;
   justify-content: center;
+}
+.order--modal {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+  background-color: white;
+  width: 25%;
+  height: fit-content;
+  padding: 20px;
+  border-radius: 5px;
+  z-index: 10;
+}
+.hide {
+  display: none;
+}
+.order--items {
+  padding: 20px;
+  background-color: hsl(13, 31%, 94%);
+  border-top-left-radius: 6px;
+  border-top-right-radius: 6px;
+}
+.your--order--item {
+  display: flex;
+  padding: 8px 0;
+  /* padding: 8px; */
+  /* border-radius: 5px; */
+  align-items: center;
+  font-size: 12px;
+  border-bottom: 0.5px solid hsl(14, 25%, 72%);
+}
+.order--name p,
+.order--details p {
+  margin: 0;
+  font-weight: 200;
+}
+.your--order--item div {
+  /* padding: 8px; */
+  /* display: flex; */
+  flex-grow: 1;
+  margin: 0 5px;
+  align-items: center;
+}
+.order--details {
+  display: flex;
+  justify-content: space-between;
+}
+.order--name {
+  font-weight: 600;
+}
+.order--quantity {
+  font-weight: 600;
+  color: hsl(14, 86%, 42%);
+}
+.order--modal .order--total {
+  padding: 8px;
+  background-color: hsl(13, 31%, 94%);
+}
+.order--thumbnail {
+  width: 40px;
+  height: 45px;
+}
+#order--price,
+.order--total--price {
+  font-weight: 600;
+}
+.order--total--price {
+  font-size: 20px;
 }

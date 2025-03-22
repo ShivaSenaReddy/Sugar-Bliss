@@ -1,7 +1,11 @@
 // fetch('./data.json').then(res=>console.log(res.json()))
+let totalQty = 0;
+let totalPrice = 0;
 const menu = document.querySelector(".menu");
 let yourcart = [];
 const yourCartEle = document.querySelector(".your--cart");
+const orderModalEle = document.querySelector(".order--modal");
+
 let menuData = [];
 //for filling the menu from data.json file
 async function fillMenu() {
@@ -27,7 +31,7 @@ async function fillMenu() {
 }
 //adding cart items
 function addItemsToCart(index) {
-  const { name, price } = menuData[index];
+  const { name, price, image } = menuData[index];
   let exists = false;
 
   for (let i = 0; i < yourcart.length; i++) {
@@ -38,7 +42,7 @@ function addItemsToCart(index) {
       return;
     }
   }
-  if (!exists) yourcart.push({ name, price, quantity: 1, id: index });
+  if (!exists) yourcart.push({ name, price, quantity: 1, id: index, image });
   console.log(yourcart);
 }
 async function init() {
@@ -63,8 +67,8 @@ async function init() {
 init();
 
 function yourCartDisplay() {
-  let totalQty = 0;
-  let totalPrice = 0;
+  totalPrice = 0;
+  totalQty = 0;
   yourcart.forEach((el) => {
     totalQty += el.quantity;
     totalPrice += el.price * el.quantity;
@@ -107,10 +111,13 @@ function yourCartDisplay() {
     </p></div>
     <button class='confirm--order'>Confirm Order</button>
     `;
+    document.querySelector(".confirm--order").addEventListener("click", () => {
+      orderDisplay();
+    });
   }
 }
 yourCartEle.addEventListener("click", (e) => {
-  console.log(e.target.closest(".remove--cart--btn").dataset);
+  console.log(e.target.closest(".remove--cart--btn")?.dataset);
   if (
     e.target
       .closest(".remove--cart--btn")
@@ -120,9 +127,61 @@ yourCartEle.addEventListener("click", (e) => {
     console.log("removing", removeId);
     yourcart = yourcart.filter((el) => el.id != removeId);
     console.log(yourcart);
+
     yourCartDisplay();
   }
 });
+//order modal
+function orderDisplay() {
+  orderModalEle.classList.remove("hide");
+  let orderContent = "";
+  let orderConfirmed = `<div>
+  <img src="./assets/images/icon-order-confirmed.svg" width='40px' height='40px'/> 
+<h3>Order Confirmed</h3>
+<p>We hope you enjoy your food </p>
+</div>`;
+  yourcart.forEach(
+    (item, i) =>
+      (orderContent += `<div class='your--order--item'>
+        
+        <img src=${item.image.thumbnail} class='order--thumbnail' />
+        <div>
+        <div>
+         <p class='order--name'>${item.name}</p>
+         </div>
+      <div>
+  <div class='order--details'>
+  <p><span class='order--quantity'>${item.quantity}x </span>@$${item.price} </p>
+  <p id='order--price'>$${item.quantity * item.price}  
+      </p>    
+      </div>
+      </div>
+   </div>
+   
+ 
+ </div>
+ `)
+  );
+
+  orderModalEle.innerHTML =
+    orderConfirmed +
+    `<div class='order--items'>` +
+    orderContent +
+    `</div>` +
+    `<div class='order--total'>
+  <p>
+Order Total</p><p class='order--total--price'>$${totalPrice}</p> 
+  
+  </div>` +
+    `<button class='new--order'>Start new Order</button>`;
+}
+
+window.addEventListener("click", (e) => {
+  if (!e.target.classList.contains("confirm--order"))
+    orderModalEle.classList.add("hide");
+  console.log("click");
+});
+// orderDisplay();
 // yourCartDisplay();
 /*
 {
